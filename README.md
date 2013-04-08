@@ -5,9 +5,7 @@ menu-aim is a jQuery plugin for dropdown menus that can differentiate
 between a user trying hover over a dropdown item vs trying to navigate into
 a submenu's contents.
 
-menu-aim assumes that you are using a menu with submenus that expand
-to the menu's right. It will fire events when the user's mouse enters a new
-dropdown item *and* when that item is being intentionally hovered over.
+[Try a demo.](http://htmlpreview.github.com/?https://github.com/kamens/jQuery-menu-aim/blob/master/example/example.html)
 
 ![Amazon screenshot](https://raw.github.com/kamens/jQuery-menu-aim/master/amazon.png)
 
@@ -21,7 +19,7 @@ dropdown.
 
      $("#menu").menuAim({
          activate: $.noop,  // fired on row activation
-         deactivate: $.noop,  // fired on row deactivation
+         deactivate: $.noop  // fired on row deactivation
      });
 
 ...to receive events when a menu's row has been purposefully (de)activated.
@@ -45,6 +43,13 @@ the relevant row's HTML element as the execution context ('this'):
          // Function to call when mouse exits a menu row.
          exit: function() {},
 
+         // Function to call when mouse exits the entire menu. If this returns
+         // true, the current row's deactivation event and callback function
+         // will be fired. Otherwise, if this isn't supplied or it returns
+         // false, the currently activated row will stay activated when the
+         // mouse leaves the menu entirely.
+         exitMenu: function() {},
+
          // Selector for identifying which elements in the menu are rows
          // that can trigger the above events. Defaults to "> li".
          rowSelector: "> li",
@@ -52,13 +57,28 @@ the relevant row's HTML element as the execution context ('this'):
          // You may have some menu rows that aren't submenus and therefore
          // shouldn't ever need to "activate." If so, filter submenu rows w/
          // this selector. Defaults to "*" (all elements).
-         submenuSelector: "*"
+         submenuSelector: "*",
+
+         // Direction the submenu opens relative to the main menu. This
+         // controls which direction is "forgiving" as the user moves their
+         // cursor from the main menu into the submenu. Can be one of "right",
+         // "left", "above", or "below". Defaults to "right".
+         submenuDirection: "right"
      });
+
+menu-aim assumes that you are using a menu with submenus that expand
+to the menu's right. It will fire events when the user's mouse enters a new
+dropdown item *and* when that item is being intentionally hovered over.
+
+## Want an example to learn from?
+
+Check out example/example.html -- it has [a working dropdown for you to play with](http://htmlpreview.github.com/?https://github.com/kamens/jQuery-menu-aim/blob/master/example/example.html):
+
+![Example screenshot](https://raw.github.com/kamens/jQuery-menu-aim/master/example.png)<br>
+_Play with the above example full of fun monkey pictures by opening example/example.html after downloading the repo._
 
 ## FAQ
 
 1. What's the license? [MIT](http://en.wikipedia.org/wiki/MIT_License).
-2. I'm not nearly bored enough. Got anything else? [Read about this plugin's creation](http://bjk5.com/post/44698559168/breaking-down-amazons-mega-dropdown).
-
-
-[MIT licensed.](http://en.wikipedia.org/wiki/MIT_License)
+2. Does it support horizontal menus or submenus that open to the left? Yup. Check out the submenuDirection option above.
+3. I'm not nearly bored enough. Got anything else? [Read about this plugin's creation](http://bjk5.com/post/44698559168/breaking-down-amazons-mega-dropdown).
